@@ -8,7 +8,6 @@ use Encode ();
 use JSON;
 use LWP::UserAgent;
 use URI;
-use URI::Escape qw(uri_unescape);
 
 our $VERSION = '0.01';
 $VERSION = eval $VERSION;
@@ -18,9 +17,7 @@ sub new {
 
     my $key = $params{apikey} or croak q('apikey' is required);
 
-    my $self = bless {
-        key => uri_unescape($key),
-    }, $class;
+    my $self = bless { key => $key }, $class;
 
     if ($params{ua}) {
         $self->ua($params{ua});
