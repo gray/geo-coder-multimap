@@ -1,7 +1,8 @@
 Geo-Coder-Multimap
 ==================
 
-This module provides an interface to the Beta Multimap Geocoding Web Service.
+This module provides an interface to the geocoding functionality of the
+Multimap Open API.
 
 INSTALLATION
 
@@ -16,6 +17,7 @@ DEPENDENCIES
 
 This module requires these other modules and libraries:
 
+    Encode
     JSON
     LWP::UserAgent
     Test::More
