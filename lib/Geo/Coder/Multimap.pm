@@ -111,7 +111,7 @@ object.
     @locations = $geocoder->geocode(location => $loc)
 
 The C<location> string should either include the country or the C<country>
-paramter should be given. Note, the C<country> parameter will produce
+parameter should be given. Note, the C<country> parameter will produce
 better results in most cases.
 
 In scalar context, this method returns the first location result; and in
