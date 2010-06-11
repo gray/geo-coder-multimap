@@ -1,5 +1,4 @@
 Changes
-ex/abc.pl
 ex/custom-useragent.pl
 lib/Geo/Coder/Multimap.pm
 Makefile.PL
