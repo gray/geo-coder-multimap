@@ -52,7 +52,7 @@ sub geocode {
         'http://developer.multimap.com/API/geocode/1.2/' . $self->{key}
     );
     $uri->query_form(
-        qs     => $params{location},
+        qs     => $location,
         output => 'json',
         $country ? (countryCode => $country) : (),
     );
