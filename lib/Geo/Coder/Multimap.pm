@@ -13,11 +13,12 @@ our $VERSION = '0.01';
 $VERSION = eval $VERSION;
 
 sub new {
-    my ($class, %params) = @_;
+    my ($class, @params) = @_;
+    my %params = (@params % 2) ? (apikey => @params) : @params;
 
-    my $key = $params{apikey} or croak q('apikey' is required);
+    croak q('apikey' is required) unless $params{apikey};
 
-    my $self = bless { key => $key }, $class;
+    my $self = bless \ %params, $class;
 
     if ($params{ua}) {
         $self->ua($params{ua});
@@ -25,6 +26,16 @@ sub new {
     else {
         $self->{ua} = LWP::UserAgent->new(agent => "$class/$VERSION");
     }
+
+    if ($self->{debug}) {
+        my $dump_sub = sub { $_[0]->dump(maxlength => 0); return };
+        $self->ua->set_my_handler(request_send  => $dump_sub);
+        $self->ua->set_my_handler(response_done => $dump_sub);
+    }
+
+    $self->{compress} = 1 unless exists $self->{compress};
+    $self->ua->default_header(accept_encoding => 'gzip,deflate')
+        if $self->{compress};
 
     return $self;
 }
@@ -49,7 +60,7 @@ sub geocode {
     $location = Encode::encode('utf-8', $location);
 
     my $uri = URI->new(
-        'http://developer.multimap.com/API/geocode/1.2/' . $self->{key}
+        'http://developer.multimap.com/API/geocode/1.2/' . $self->{apikey}
     );
     $uri->query_form(
         qs     => $location,
@@ -190,7 +201,7 @@ L<http://search.cpan.org/dist/Geo-Coder-Multimap>
 
 =head1 COPYRIGHT AND LICENSE
 
-Copyright (C) 2010 gray <gray at cpan.org>, all rights reserved.
+Copyright (C) 2009-2010 gray <gray at cpan.org>, all rights reserved.
 
 This library is free software; you can redistribute it and/or modify it
 under the same terms as Perl itself.

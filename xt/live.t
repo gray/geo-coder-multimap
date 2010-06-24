@@ -11,7 +11,17 @@ else {
     plan tests => 8;
 }
 
-my $geocoder = Geo::Coder::Multimap->new(apikey => $ENV{MULTIMAP_APIKEY});
+my $debug = $ENV{GEO_CODER_MULTIMAP_DEBUG};
+unless ($debug) {
+    diag "Set GEO_CODER_MULTIMAP_DEBUG to see request/response data";
+}
+
+
+my $geocoder = Geo::Coder::Multimap->new(
+    apikey   => $ENV{MULTIMAP_APIKEY},
+    debug    => $debug,
+    compress => 0,
+);
 {
     my $address = 'Hollywood & Highland, Los Angeles, CA, US';
     my $location = $geocoder->geocode($address);
