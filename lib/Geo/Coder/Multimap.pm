@@ -40,6 +40,8 @@ sub new {
     return $self;
 }
 
+sub response { $_[0]->{response} }
+
 sub ua {
     my ($self, $ua) = @_;
     if ($ua) {
@@ -68,7 +70,7 @@ sub geocode {
         $country ? (countryCode => $country) : (),
     );
 
-    my $res = $self->ua->get($uri);
+    my $res = $self->{response} = $self->ua->get($uri);
     return unless $res->is_success;
 
     my $data = eval { from_json($res->decoded_content) };
@@ -126,7 +128,7 @@ parameter should be given. Note, the C<country> parameter will produce
 better results in most cases.
 
 In scalar context, this method returns the first location result; and in
-list context it returns all locations results.
+list context it returns all location results.
 
 Each location result is a hashref; a typical example looks like:
 
@@ -146,6 +148,13 @@ Each location result is a hashref; a typical example looks like:
         'geocode_score' => '0.409'
     }
 
+=head2 response
+
+    $response = $geocoder->response()
+
+Returns an L<HTTP::Response> object for the last submitted request. Can be
+used to determine the details of an error.
+
 =head2 ua
 
     $ua = $geocoder->ua()
@@ -157,8 +166,9 @@ Accessor for the UserAgent object.
 
 L<http://www.multimap.com/openapidocs/1.2/web_service/ws_geocoding.htm>
 
-L<Geo::Coder::Bing>, L<Geo::Coder::Google>, L<Geo::Coder::Mapquest>,
-L<Geo::Coder::Yahoo>
+L<Geo::Coder::Bing>, L<Geo::Coder::Bing::Bulk>, L<Geo::Coder::Google>,
+L<Geo::Coder::Mapquest>, L<Geo::Coder::Navteq>, L<Geo::Coder::OSM>,
+L<Geo::Coder::TomTom>, L<Geo::Coder::Yahoo>
 
 =head1 REQUESTS AND BUGS
 
