@@ -168,7 +168,7 @@ L<http://www.multimap.com/openapidocs/1.2/web_service/ws_geocoding.htm>
 
 L<Geo::Coder::Bing>, L<Geo::Coder::Bing::Bulk>, L<Geo::Coder::Google>,
 L<Geo::Coder::Mapquest>, L<Geo::Coder::Navteq>, L<Geo::Coder::OSM>,
-L<Geo::Coder::TomTom>, L<Geo::Coder::Yahoo>
+L<Geo::Coder::PlaceFinder>, L<Geo::Coder::TomTom>, L<Geo::Coder::Yahoo>
 
 =head1 REQUESTS AND BUGS
 
