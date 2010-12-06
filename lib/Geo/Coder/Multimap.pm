@@ -205,7 +205,7 @@ L<http://rt.cpan.org/Public/Dist/Display.html?Name=Geo-Coder-Multimap>
 
 =item * Search CPAN
 
-L<http://search.cpan.org/dist/Geo-Coder-Multimap>
+L<http://search.cpan.org/dist/Geo-Coder-Multimap/>
 
 =back
 
