@@ -4,18 +4,12 @@ use Encode qw(decode encode);
 use Geo::Coder::Multimap;
 use Test::More;
 
-unless ($ENV{MULTIMAP_APIKEY}) {
-    plan skip_all => 'MULTIMAP_APIKEY environment variable must be set';
-}
-else {
-    plan tests => 8;
-}
+plan skip_all => 'MULTIMAP_APIKEY environment variable must be set'
+    unless $ENV{MULTIMAP_APIKEY};
 
 my $debug = $ENV{GEO_CODER_MULTIMAP_DEBUG};
-unless ($debug) {
-    diag "Set GEO_CODER_MULTIMAP_DEBUG to see request/response data";
-}
-
+diag "Set GEO_CODER_MULTIMAP_DEBUG to see request/response data"
+    unless $debug;
 
 my $geocoder = Geo::Coder::Multimap->new(
     apikey   => $ENV{MULTIMAP_APIKEY},
@@ -52,3 +46,5 @@ my $geocoder = Geo::Coder::Multimap->new(
     ok($location, 'UTF-8 bytes');
     is($location->{address}{country_code}, 'FR', 'UTF-8 bytes');
 }
+
+done_testing;
